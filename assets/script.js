@@ -1,5 +1,23 @@
-var now = dayjs().format("MMMM D, YYYY")
-$("#currentDay").text(now)
+var nowEl = dayjs().format("MMMM D, YYYY",)
+$("#currentDay").text(nowEl)
+
+function trackTime () {
+  var currentTime = dayjs().hour();
+  var timeBlock = $(".time-block");
+  for(let x = 0; x < timeBlock.length; x++) {
+  const textarea = timeBlock[x].children[1];
+  var timeBlockEl = timeBlock[x].getAttribute("id");
+  if (timeBlockEl < currentTime) {
+    textarea.classList.add ("future")
+  } else if (timeBlockEl === currentTime) {
+    textarea.classList.add ("present")
+  } else {
+    textarea.classList.add ("past")
+  };
+}
+}
+
+trackTime()
 
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
