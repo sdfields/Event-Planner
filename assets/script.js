@@ -4,25 +4,47 @@ $("#currentDay").text(nowEl)
 function trackTime () {
   var currentTime = dayjs().hour();
   var timeBlock = $(".time-block");
+  console.log(currentTime, timeBlock)
   for(let x = 0; x < timeBlock.length; x++) {
   const textarea = timeBlock[x].children[1];
   var timeBlockEl = timeBlock[x].getAttribute("id");
-  if (timeBlockEl < currentTime) {
-    textarea.classList.add ("future")
-  } else if (timeBlockEl === currentTime) {
+  var timeId = parseInt(timeBlockEl.split("-")[1])
+  console.log(timeId)
+  if (timeId < currentTime) {
+    textarea.classList.add ("past")
+  } else if (timeId === currentTime) {
     textarea.classList.add ("present")
   } else {
-    textarea.classList.add ("past")
+    textarea.classList.add ("future")
   };
 }
 }
 
 trackTime()
 
+$(".saveBtn").on("click", function() {
+  var textValue = $(this).siblings("textarea").val()
+  var textId = $(this).parent().attr("id")
+  localStorage.setItem(textId, textValue)
+})
+
+$("#hour-9 textarea").val(localStorage.getItem("hour-9"))
+$("#hour-10 textarea").val(localStorage.getItem("hour-10"))
+$("#hour-11 textarea").val(localStorage.getItem("hour-11"))
+$("#hour-12 textarea").val(localStorage.getItem("hour-12"))
+$("#hour-13 textarea").val(localStorage.getItem("hour-13"))
+$("#hour-14 textarea").val(localStorage.getItem("hour-14"))
+$("#hour-15 textarea").val(localStorage.getItem("hour-15"))
+$("#hour-16 textarea").val(localStorage.getItem("hour-16"))
+$("#hour-17 textarea").val(localStorage.getItem("hour-17"))
+
+//each
+
+
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
-$(function () {
+
     // TODO: Add a listener for click events on the save button. This code should
     // use the id in the containing time-block as a key to save the user input in
     // local storage. HINT: What does `this` reference in the click listener
@@ -41,4 +63,3 @@ $(function () {
     // attribute of each time-block be used to do this?
     //
     // TODO: Add code to display the current date in the header of the page.
-  });
